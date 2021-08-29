@@ -6,14 +6,17 @@ USER3='azureuser'
 PASS='4linux'
 
 function AdicionarUsuarios {
-# Criando o usuário ec2-user
+# Criando e adicionando aos sudoers o usuário ec2-user 
 useradd -m -d "/home/${USER1}" -p $(openssl passwd -1 ${PASS}) -s /bin/bash ${USER1}
+sed 's|vagrant|'"${USER1}"'|g' /etc/sudoers.d/vagrant > /etc/sudoers.d/${USER1}
 
-# Criando o usuário suporte-gcp
+# Criando e adicionando aos sudoers o usuário suporte-gcp
 useradd -m -d "/home/${USER2}" -p $(openssl passwd -1 ${PASS}) -s /bin/bash ${USER2}
+sed 's|vagrant|'"${USER2}"'|g' /etc/sudoers.d/vagrant > /etc/sudoers.d/${USER2}
 
-# Criando o usuário azureuser
+# Criando e adicionando aos sudoers o usuário azureuser
 useradd -m -d "/home/${USER3}" -p $(openssl passwd -1 ${PASS}) -s /bin/bash ${USER3}
+sed 's/vagrant/${USER3}/g' /etc/sudoers.d/vagrant > /etc/sudoers.d/${USER3}
 }
 
 function InstalarPacotes {
