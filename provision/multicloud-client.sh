@@ -6,3 +6,6 @@ AdicionarUsuarios;
 
 # Chama a função de instalação de pacotes
 InstalarPacotes;
+
+# Chama a função de configuração do servidor SSH
+ConfigurarSSH;
