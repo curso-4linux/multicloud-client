@@ -16,7 +16,7 @@ sed 's|vagrant|'"${USER2}"'|g' /etc/sudoers.d/vagrant > /etc/sudoers.d/${USER2}
 
 # Criando e adicionando aos sudoers o usuário azureuser
 useradd -m -d "/home/${USER3}" -p $(openssl passwd -1 ${PASS}) -s /bin/bash ${USER3}
-sed 's/vagrant/${USER3}/g' /etc/sudoers.d/vagrant > /etc/sudoers.d/${USER3}
+sed 's|vagrant|'"${USER3}"'|g' /etc/sudoers.d/vagrant > /etc/sudoers.d/${USER3}
 }
 
 function InstalarPacotes {
@@ -25,4 +25,10 @@ sudo apt update -y; wait;
 
 # Instalando pacotes essenciais para o curso
 sudo apt install -y vim unzip;
+}
+
+function ConfigurarSSH {
+# Configurar servidor SSH para permitir conexão por senha
+sed -i 's/PasswordAuthentication no/PasswordAuthentication yes'/ /etc/ssh/sshd_config
+systemctl restart sshd
 }
